@@ -1,0 +1,15 @@
+node_modules
+# Keep environment variables out of version control
+/build
+/node_modules
+.env
+.env.dev
+.env.prod
+
+/yarn.lock
+
+/uploads/*.jpg
+/uploads/*.png
+
+/prisma/migrations
+/pnpm-lock.yaml

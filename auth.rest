@@ -1,0 +1,27 @@
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "John Layda",
+    "email": "Johnlayda92@gmail.com",
+    "password": "Johnlayda@1"
+}
+
+### 
+POST https://yourhost.com/auth/login
+Content-Type: application/json
+
+{
+  "email": "Johnlayda92@gmail.com",
+  "password": "Johnlayda@1"
+}
+
+###
+PUT https://yourhost.com/api/edit-account/:id
+Content-Type: application/json
+
+{
+  "user": {
+    "role": "ADMIN"
+  }
+}

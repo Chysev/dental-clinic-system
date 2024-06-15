@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "Dental Clinic",
+    "slug": "dental-clinic",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "icon": "./assets/images/clinic_logo_2.png",
+    "splash": {
+      "resizeMode": "contain",
+      "image": "./assets/images/clinic_logo_2.png",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.chysev.dentalclinic"
+    },
+
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.chysev.dentalclinic"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f0ca8340-f800-45d8-b102-452b4e3e9a45"
+      }
+    },
+    "owner": "chysev",
+    "updates": {
+      "url": "https://u.expo.dev/f0ca8340-f800-45d8-b102-452b4e3e9a45"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
+  }
+}

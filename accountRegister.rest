@@ -1,0 +1,152 @@
+### Admins
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Alice",
+    "email": "admin.alice@example.com",
+    "password": "AdminAlice@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Bob",
+    "email": "admin.bob@example.com",
+    "password": "AdminBob@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": " Carol",
+    "email": "admin.carol@example.com",
+    "password": "AdminCarol@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Dave",
+    "email": "admin.dave@example.com",
+    "password": "AdminDave@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Eve",
+    "email": "admin.eve@example.com",
+    "password": "AdminEve@1"
+}
+
+### Staffs
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Frank",
+    "email": "staff.frank@example.com",
+    "password": "StaffFrank@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Grace",
+    "email": "staff.grace@example.com",
+    "password": "StaffGrace@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Hank",
+    "email": "staff.hank@example.com",
+    "password": "StaffHank@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Irene",
+    "email": "staff.irene@example.com",
+    "password": "StaffIrene@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Jack",
+    "email": "staff.jack@example.com",
+    "password": "StaffJack@1"
+}
+
+
+### Dentists
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Karen",
+    "email": "dr.karen@example.com",
+    "password": "DrKaren@1"
+}
+
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Larry",
+    "email": "dr.larry@example.com",
+    "password": "DrLarry@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Monica",
+    "email": "dr.monica@example.com",
+    "password": "DrMonica@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Nick",
+    "email": "dr.nick@example.com",
+    "password": "DrNick@1"
+}
+
+###
+POST https://yourhost.com/auth/register
+Content-Type: application/json
+
+{
+    "name": "Olivia",
+    "email": "dr.olivia@example.com",
+    "password": "DrOlivia@1"
+}
+

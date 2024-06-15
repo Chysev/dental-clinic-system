@@ -1,0 +1,25 @@
+
+###
+POST https://yourhost.com/api/appointment/create
+Content-Type: application/json
+
+{
+  "dentistId": 17,
+  "status": "SCHEDULE",
+  "date": "2024-06-20T01:00:00Z",
+  "time": "09:00 AM",
+  "serviceIds": [2]
+}
+
+###
+POST https://yourhost.com/api/service/create
+Content-Type: application/json
+
+{
+  "name": "Teeth Cleaning",
+  "price": 1200
+}
+
+
+
+
