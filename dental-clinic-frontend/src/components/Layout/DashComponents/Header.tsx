@@ -31,7 +31,7 @@ const Header = () => {
   };
 
   const { data: datas } = useQuery({
-    queryKey: ["token"],
+    queryKey: ["user", "profile"],
     queryFn: async () => {
       return useToken();
     },

@@ -29,13 +29,14 @@ const TodaysAppt = () => {
     isAuthenticated(navigate);
   }, []);
 
-  const { data }: UseQueryResult<AppointmentT[], Error> = useQuery({
-    queryKey: ["todays-appointment"],
-    queryFn: async () => {
-      return GET_APPOINTMENT();
-    },
-    refetchInterval: 1000,
-  });
+  const { error, isLoading, data }: UseQueryResult<AppointmentT[], Error> =
+    useQuery({
+      queryKey: ["todays-appointment"],
+      queryFn: async () => {
+        return GET_APPOINTMENT();
+      },
+      refetchInterval: 1000,
+    });
 
   const handleDeleteClick = (id: number | SetStateAction<null> | undefined) => {
     setSelectedAppointmentId(id as number);
@@ -67,6 +68,66 @@ const TodaysAppt = () => {
       ) || []
     )
   );
+
+  if (isLoading) {
+    return (
+      <DashLayout>
+        <div className="flex h-full w-full">
+          <div className="z-1 w-full mt-24 px-4 gap-2">
+            <h1 className="text-2xl font-bold pb-5">Appointments</h1>
+            <div className="flex 992min:items-center gap-2 992max:flex-col pb-5">
+              <div className="border border-gray-300 p-2 rounded animate-pulse h-10 w-32"></div>
+            </div>
+            <div className="overflow-x-auto shadow-md">
+              <Table hoverable>
+                <Table.Head>
+                  {AppointmentTab.map(
+                    (items: { Tab: string }, index: number) => (
+                      <Table.HeadCell
+                        key={index}
+                        className="font-semibold text-base animate-pulse bg-gray-300 h-6 rounded"
+                      >
+                        {items.Tab}
+                      </Table.HeadCell>
+                    )
+                  )}
+                </Table.Head>
+                <Table.Body className="divide-y">
+                  {Array(5)
+                    .fill("")
+                    .map((_, index) => (
+                      <Table.Row key={index} className="animate-pulse">
+                        <Table.Cell className="text-base whitespace-nowrap font-medium text-slate-900 bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                      </Table.Row>
+                    ))}
+                </Table.Body>
+              </Table>
+            </div>
+          </div>
+        </div>
+      </DashLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <DashLayout>
+        <div className="flex h-full w-full">
+          <div className="z-1 w-full mt-24 px-4 gap-2">
+            <p className="text-red-500">
+              Error loading data, please contact your developer.
+            </p>
+          </div>
+        </div>
+      </DashLayout>
+    );
+  }
 
   return (
     <>

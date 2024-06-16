@@ -36,7 +36,11 @@ const Services = () => {
     price: 0,
   });
 
-  const { data: datas }: UseQueryResult<ServicesT[], Error> = useQuery({
+  const {
+    error,
+    isLoading,
+    data: datas,
+  }: UseQueryResult<ServicesT[], Error> = useQuery({
     queryKey: ["services"],
     queryFn: async () => {
       return GET_SERVICES();
@@ -86,6 +90,64 @@ const Services = () => {
     Toast("Service has been deleted successfully", ToastTypes.SUCCESS);
     await DELETE_SERVICE(selectedServicesId as any);
   };
+
+  if (isLoading) {
+    return (
+      <DashLayout>
+        <div className="flex h-full w-full">
+          <div className="z-1 w-full mt-24 px-4 gap-2">
+            <div className="flex items-center gap-1">
+              <h1 className="text-2xl font-bold pb-3">Services</h1>
+              <p className="text-slate-500">All verified services</p>
+            </div>
+
+            <div className="border border-gray-300 p-2 rounded animate-pulse h-10 mb-5 w-32"></div>
+
+            <div className="overflow-x-auto shadow-md">
+              <Table hoverable className="min-w-full">
+                <Table.Head>
+                  <Table.HeadCell className="font-semibold text-base animate-pulse bg-gray-300 h-6 rounded">
+                    Services
+                  </Table.HeadCell>
+                  <Table.HeadCell className="font-semibold text-base animate-pulse bg-gray-300 h-6 rounded">
+                    Price
+                  </Table.HeadCell>
+                  <Table.HeadCell className="font-semibold text-base animate-pulse bg-gray-300 h-6 rounded">
+                    Actions
+                  </Table.HeadCell>
+                </Table.Head>
+                <Table.Body className="divide-y">
+                  {Array(5)
+                    .fill("")
+                    .map((_, index) => (
+                      <Table.Row key={index} className="animate-pulse">
+                        <Table.Cell className="text-base whitespace-nowrap font-medium text-slate-900 bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                      </Table.Row>
+                    ))}
+                </Table.Body>
+              </Table>
+            </div>
+          </div>
+        </div>
+      </DashLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <DashLayout>
+        <div className="flex h-full w-full">
+          <div className="z-1 w-full mt-24 px-4 gap-2">
+            <p className="text-red-500">
+              Error loading data, please contact your developer.
+            </p>
+          </div>
+        </div>
+      </DashLayout>
+    );
+  }
 
   return (
     <>

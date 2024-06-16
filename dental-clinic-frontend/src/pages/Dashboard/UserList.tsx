@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MouseEvent, SetStateAction, useEffect, useState } from "react";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-import { AccountT, UserT } from "@/types";
+import { AccountT } from "@/types";
 import { UserListTab } from "@/lib/contants";
 import { isAuthenticated } from "../../lib/useToken";
 import { ToastTypes, useToast } from "@/lib/useToast";
@@ -23,7 +23,11 @@ const UserList = () => {
     isAuthenticated(navigate);
   }, []);
 
-  const { data: datas }: UseQueryResult<UserT[], Error> = useQuery({
+  const {
+    error,
+    isLoading,
+    data: datas,
+  }: UseQueryResult<AccountT[], Error> = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       return GET_ALLUSERS();
@@ -82,6 +86,65 @@ const UserList = () => {
     setOpenModalDelete(false);
     DELETE_ACCOUNT(selectedEditProfileId as any);
   };
+
+  if (isLoading) {
+    return (
+      <DashLayout>
+        <div className="flex h-full w-full">
+          <div className="z-1 w-full mt-24 px-4 gap-2">
+            <div className="flex 420min:items-center gap-1 420max:flex-col 420max:gap-0">
+              <h1 className="text-2xl font-bold 420min:pb-3">Users</h1>
+              <p className="text-slate-500">
+                All registered users on the system.
+              </p>
+            </div>
+            <div className="overflow-x-auto shadow-md">
+              <Table hoverable className="min-w-full">
+                <Table.Head>
+                  {UserListTab.map((items: { Tab: string }, index: number) => (
+                    <Table.HeadCell
+                      key={index}
+                      className="font-semibold text-base animate-pulse bg-gray-300 h-6 rounded"
+                    >
+                      {items.Tab}
+                    </Table.HeadCell>
+                  ))}
+                </Table.Head>
+                <Table.Body className="divide-y">
+                  {Array(5)
+                    .fill("")
+                    .map((_, index) => (
+                      <Table.Row key={index} className="animate-pulse">
+                        <Table.Cell className="text-base whitespace-nowrap font-medium text-slate-900 bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                        <Table.Cell className="text-base bg-gray-300 h-6 rounded"></Table.Cell>
+                      </Table.Row>
+                    ))}
+                </Table.Body>
+              </Table>
+            </div>
+          </div>
+        </div>
+      </DashLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <DashLayout>
+        <div className="flex h-full w-full">
+          <div className="z-1 w-full mt-24 px-4 gap-2">
+            <p className="text-red-500">
+              Error loading data, please contact your developer.
+            </p>
+          </div>
+        </div>
+      </DashLayout>
+    );
+  }
 
   return (
     <>

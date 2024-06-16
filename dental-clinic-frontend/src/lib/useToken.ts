@@ -1,9 +1,10 @@
+import { AccountT } from "@/types";
 import Axios from "./Axios";
 import { UseNavigateResult } from "@tanstack/react-router";
 
 const useToken = async () => {
   try {
-    const response = await Axios.get("/api/session");
+    const response = await Axios.get<AccountT>("/api/session");
 
     return response.data;
   } catch (error) {

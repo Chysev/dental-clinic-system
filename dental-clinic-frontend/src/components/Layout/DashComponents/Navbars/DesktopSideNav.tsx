@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 import Axios from "@/lib/Axios";
+import { AccountT } from "@/types";
 import navItems from "../Contants/navItems";
 import LogoutModal from "../Modals/LogoutModal";
 import SideNavListLayout from "./SideNavListLayout";
@@ -21,8 +22,10 @@ const DeskopSideNav = ({ isTextVisible, setIsTextVisible }: SideNavDeskT) => {
 
   const useToken = async () => {
     try {
-      const response = await Axios.get("/api/session");
-      setIsAdmin(response.data.user.role === "ADMIN");
+      const response = await Axios.get<AccountT>("/api/session");
+      if (response.data && response.data.user) {
+        setIsAdmin(response.data.user.role === "ADMIN");
+      }
       return response.data;
     } catch (error) {
       console.error("Error getting user:", error);

@@ -1,6 +1,6 @@
 import Axios from "@/lib/Axios";
 import { ToastTypes } from "@/lib/useToast";
-import { AppointmentT, UserT } from "@/types";
+import { AppointmentT, AccountT } from "@/types";
 import { SetStateAction } from "react";
 
 // Fetch
@@ -14,7 +14,7 @@ const GET_APPOINTMENT = async (): Promise<AppointmentT[]> => {
   }
 };
 
-const GET_DENTISTS = async (): Promise<UserT[]> => {
+const GET_DENTISTS = async (): Promise<AccountT[]> => {
   try {
     const response = await Axios.get("/api/user-list/dentists");
     return response.data;
@@ -24,7 +24,7 @@ const GET_DENTISTS = async (): Promise<UserT[]> => {
   }
 };
 
-const GET_PATIENTS = async (): Promise<UserT[]> => {
+const GET_PATIENTS = async (): Promise<AccountT[]> => {
   try {
     const response = await Axios.get("/api/user-list/patients");
     return response.data;
@@ -44,7 +44,7 @@ const ARCHIVE_APPOINTMENT = async (id: number) => {
   }
 };
 
-const GET_STAFFS = async (): Promise<UserT[]> => {
+const GET_STAFFS = async (): Promise<AccountT[]> => {
   try {
     const response = await Axios.get("/api/user-list/staffs");
     return response.data;
@@ -65,7 +65,7 @@ const GET_SERVICES = async () => {
   }
 };
 
-const GET_ALLUSERS = async (): Promise<UserT[]> => {
+const GET_ALLUSERS = async (): Promise<AccountT[]> => {
   try {
     const response = await Axios.get("/api/user-list");
     return response.data;

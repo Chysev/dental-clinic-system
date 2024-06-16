@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { Badge, Button, Card, Table } from "flowbite-react";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 
-import { LogEntry } from "@/types";
+import { LogEntry, AccountT } from "@/types";
 import DashLayout from "../../components/Layout/DashLayout";
 import useToken, { isAuthenticated } from "../../lib/useToken";
 
@@ -13,8 +13,12 @@ const Dashboard = () => {
   const [log, setLog] = useState<LogEntry[]>([]);
   const [comment, setComment] = useState("");
 
-  const { data: datas } = useQuery({
-    queryKey: ["token"],
+  const {
+    error,
+    isLoading,
+    data: datas,
+  }: UseQueryResult<AccountT, Error> = useQuery({
+    queryKey: ["user", "profile"],
     queryFn: async () => {
       return useToken();
     },
@@ -39,6 +43,83 @@ const Dashboard = () => {
     setComment("");
   };
 
+  if (isLoading) {
+    return (
+      <DashLayout>
+        <div className="flex flex-col h-full w-full px-4 1024min:px-0 1024min:flex-row 1024min:gap-4">
+          <div className="w-full mt-28 1024min:px-4">
+            <div className="flex flex-col 1024min:flex-row w-full gap-4 p-2">
+              <div className="space-y-4 w-full 1024min:max-w-[900px]">
+                <div className="flex flex-col 1290min:flex-row gap-4">
+                  <Card className="w-full p-4 animate-pulse">
+                    <div className="h-6 bg-gray-300 rounded mb-4"></div>
+                    <div className="rounded-full bg-gray-300 w-32 h-32 mx-auto my-4"></div>
+                    <div className="w-full max-w-[200px] mx-auto mb-4">
+                      <div className="h-6 bg-gray-300 rounded"></div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="h-6 bg-gray-300 rounded"></div>
+                      <div className="h-6 bg-gray-300 rounded"></div>
+                      <div className="h-6 bg-gray-300 rounded"></div>
+                      <div className="h-6 bg-gray-300 rounded"></div>
+                      <div className="h-6 bg-gray-300 rounded"></div>
+                    </div>
+                  </Card>
+                  <Card className="w-full p-4 animate-pulse">
+                    <div className="h-6 bg-gray-300 rounded mb-4"></div>
+                    <div className="h-6 bg-gray-300 rounded mb-4"></div>
+                    <div className="h-12 bg-gray-300 rounded mb-4"></div>
+                    <div className="w-full mt-4">
+                      <div className="h-6 bg-gray-300 rounded mb-2"></div>
+                      <div className="h-6 bg-gray-300 rounded mb-2"></div>
+                      <div className="h-6 bg-gray-300 rounded mb-2"></div>
+                    </div>
+                  </Card>
+                </div>
+                <Card className="animate-pulse">
+                  <div className="h-6 bg-gray-300 rounded mb-4"></div>
+                  <div className="h-12 bg-gray-300 rounded mb-2"></div>
+                  <div className="h-12 bg-gray-300 rounded mb-2"></div>
+                </Card>
+              </div>
+              <div className="w-full">
+                <Table
+                  hoverable
+                  className="w-full shadow-sm rounded-lg animate-pulse"
+                >
+                  <Table.Head>
+                    <Table.HeadCell className="h-6 bg-gray-300 rounded"></Table.HeadCell>
+                    <Table.HeadCell className="h-6 bg-gray-300 rounded"></Table.HeadCell>
+                  </Table.Head>
+                  <Table.Body>
+                    <Table.Row>
+                      <Table.Cell className="h-6 bg-gray-300 rounded"></Table.Cell>
+                      <Table.Cell className="h-6 bg-gray-300 rounded"></Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
+                </Table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </DashLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <DashLayout>
+        <div className="flex h-full w-full">
+          <div className="z-1 w-full mt-24 px-4 gap-2">
+            <p className="text-red-500">
+              Error loading data, please contact your developer.
+            </p>
+          </div>
+        </div>
+      </DashLayout>
+    );
+  }
+
   return (
     <DashLayout>
       <div className="flex flex-col h-full w-full px-4 1024min:px-0 1024min:flex-row 1024min:gap-4">
@@ -52,7 +133,7 @@ const Dashboard = () => {
                     Hello, {datas?.user.name}!
                   </h1>
                   <img
-                    src={`${datas?.user.avatarUrl}`}
+                    src={`${datas?.user?.avatarUrl}`}
                     alt="User Avatar"
                     className="rounded-full w-32 h-32 mx-auto my-4"
                   />
@@ -65,10 +146,10 @@ const Dashboard = () => {
                   </div>
 
                   <div>
-                    <p>Name: {datas?.user.name}</p>
+                    <p>Name: {datas?.user?.name}</p>
                     <p>Email: {datas?.email}</p>
                     <p>Contact: +63 {datas?.contact || "Not Provided"}</p>
-                    <p>Position: {datas?.user.role}</p>
+                    <p>Position: {datas?.user?.role}</p>
                     <p>Account Created: {datas?.createdAt}</p>
                   </div>
                 </Card>

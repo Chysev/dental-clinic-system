@@ -75,17 +75,8 @@ export type AccountT = {
   id: number;
   email: string;
   contact: string;
-  user: {
-    name: string;
-    role: string;
-  };
-};
-
-export type UserT = {
-  id: number;
-  email: string;
-  contact: string;
   status: string;
+  createdAt: string;
   user: {
     id: number;
     name: string;
